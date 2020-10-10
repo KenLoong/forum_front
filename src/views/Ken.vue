@@ -8,6 +8,7 @@
             <h3>如果有什么问题，欢迎大家在我的博客上联系我</h3>
             博客链接：<a href="https://segmentfault.com/u/kenloong">ken博客</a>
         </div>
+        <button v-if="$store.state.userInfo.username == 'ken'" @click="toAdmin">管理员</button>
     </div>
 </template>
 
@@ -17,6 +18,11 @@
         name: "Ken",
         components:{
             Navbar
+        },
+        methods:{
+            toAdmin(){
+                this.$router.push('/myAdmin')
+            }
         }
     }
 </script>

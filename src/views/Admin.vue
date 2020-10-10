@@ -2,16 +2,27 @@
     <div>
         <Navbar></Navbar>
         <div>
-            <el-button type="danger" round @click="resetEs">重置Es库</el-button>
+            <el-button type="danger" round @click="clearEs">重置Es库</el-button>
+            <br>
 
-            <el-form  status-icon  ref="ruleForm" label-width="100px" class="demo-ruleForm ">
-                <!--  form-item 的 prop对应的就是校验规则   -->
-                <el-form-item  label="用户ID" prop="uid" >
+            <el-form  status-icon  ref="ruleForm1" label-width="100px" class="demo-ruleForm ">
+                <el-form-item  label="用户ID"  >
                     <el-input class="form-item" v-model="uid" ></el-input>
                 </el-form-item>
 
                 <el-form-item>
                     <el-button type="danger" @click="deleteUser">删除用户</el-button>
+                </el-form-item>
+            </el-form>
+
+
+            <el-form  status-icon  ref="ruleForm2" label-width="100px" class="demo-ruleForm ">
+                <el-form-item  label="用户ID" >
+                    <el-input class="form-item" v-model="es_uid" ></el-input>
+                </el-form-item>
+
+                <el-form-item>
+                    <el-button type="danger" @click="resetEs">重新录入ES</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -29,6 +40,7 @@
         data() {
             return{
                 uid: '',
+                es_uid: '',
             }
         },
         methods:{
@@ -42,14 +54,14 @@
             fail(msg) {
                 this.$message.error(msg);
             },
-            resetEs(){
+            clearEs(){
                 const _this = this;
                 this.$axios({
                     method:'post',
-                    url:'/admin/resetEs',
+                    url:'/admin/clearEs',
                 }).then(function(res){
                     if (res.data.code == 200){
-                        _this.success('重置成功')
+                        _this.success('es库清空完成')
                     }else{
                         _this.fail(res.data.msg)
                     }
@@ -73,6 +85,31 @@
                     console.log(error)
                 });
 
+            },
+            resetEs(){
+                const _this = this
+                _this.$axios.get('/admin/resetEs?uid='+_this.es_uid).then(res => {
+                    if (res.data.code == 200){
+                        _this.success(res.data.msg)
+                    }else{
+                        _this.fail(res.data.msg)
+                    }
+                }).catch(function(error){
+                    console.log(error)
+                });
+                // //提交表单
+                // this.$axios({
+                //     method:'get',
+                //     url:'/admin/resetEs?uid='+_this.es_uid,
+                // }).then(function(res){
+                //     if (res.data.code == 200){
+                //         _this.success(res.data.msg)
+                //     }else{
+                //         _this.fail(res.data.msg)
+                //     }
+                // }).catch(function(error){
+                //     console.log(error)
+                // });
             }
         }
     }
