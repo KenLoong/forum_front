@@ -25,7 +25,7 @@
                 <div class="media pb-3 border-bottom">
                     <!--用户头像-->
                     <router-link :to="{name: 'Profile' ,params: {uid : postVo.user.id}}">
-                        <el-avatar  :src="uploadPath+postVo.user.avatar"></el-avatar>
+                        <el-avatar  :src="postVo.user.avatar"></el-avatar>
                     </router-link>
 
 
@@ -58,8 +58,9 @@
                 </div>
 
                 <!-- 正文 -->
-                <div class="mt-4 mb-3 content " v-text="postVo.post.content">
-                </div>
+<!--                <div class="mt-4 mb-3 content " v-text="postVo.post.content"></div>-->
+                <div class="markdown-body" v-html="postContent"></div>
+
 
                 <!--展示图片-->
                 <div>
@@ -201,12 +202,13 @@
 
 
         </div><!--main 的div结束-->
-
-
     </div>
+
+
 </template>
 
 <script>
+    import 'github-markdown-css/github-markdown.css'
     import Navbar from "../components/Navbar";
     export default {
         name: "PostDetail",
@@ -216,9 +218,11 @@
         data(){
             return{
                 postVo:{},
+                postContent:{},
                 comments:{},
                 uploadPath:this.$axios.defaults.baseURL,
-                picturePath:'http://47.115.88.155',
+                picturePath:'http://127.0.0.1',
+                // picturePath:'http://47.115.88.155',
                 pictures:{},
 
                 entityType:'',
@@ -247,6 +251,12 @@
                 url:'/post/detail/'+this.$route.params.pid,
             }).then(function(res){
                 _this.postVo = res.data.data.postVo;
+
+                //渲染成md效果
+                var MardownIt = require("markdown-it");
+                var md = new MardownIt();
+                _this.postContent = md.render(_this.postVo.post.content);
+
                 _this.comments = res.data.data.comments;
                 _this.pictures = res.data.data.pictures;
                 _this.likeStatus = res.data.data.likeStatus;

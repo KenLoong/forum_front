@@ -10,7 +10,8 @@
                 </el-form-item>
 
                 <el-form-item label="内容" prop="content">
-                    <el-input type="textarea" :rows="20"   v-model="ruleForm.content"></el-input>
+                    <mavon-editor v-model="ruleForm.content"></mavon-editor>
+<!--                    <el-input type="textarea" :rows="20"   v-model="ruleForm.content"></el-input>-->
                 </el-form-item>
 
                 <el-form-item>
@@ -73,7 +74,8 @@
                 },
                 rules: {
                     title: [
-                        {required: true, message: '请输入标题', trigger: 'blur'}
+                        {required: true, message: '请输入标题', trigger: 'blur'},
+                        {min: 2, max: 25, message: '长度在 3 到 25 个字符', trigger: 'blur'}
                     ],
                     content: [
                         {required: true, message: '请输入内容', trigger: 'blur'}

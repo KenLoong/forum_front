@@ -8,7 +8,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-8">
-                        <h6><b class="square"></b> 来自 <i class="text-success" v-text="target.username">落基山脉下的闲人</i> 的私信</h6>
+                        <h6><b class="square"></b> 来自 <i class="text-success" v-text="target.username"></i> 的私信</h6>
                     </div>
                     <div class="col-4 text-right">
                         <button type="button" class="btn btn-secondary btn-sm" @click="back">返回</button>
@@ -24,14 +24,13 @@
 
                         <div class="toast show d-lg-block" role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="toast-header">
-                                <strong class="mr-auto" v-text="letterVo.fromUser.username">闲人</strong>
-                                <small v-text="letterVo.letter.createTime">2019-04-25 15:49:32</small>
+                                <strong class="mr-auto" v-text="letterVo.fromUser.username"></strong>
+                                <small v-text="letterVo.letter.createTime">2020-8-25 15:49:32</small>
                                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="toast-body" v-text="letterVo.letter.content">
-                                君不见, 黄河之水天上来, 奔流到海不复回!
                             </div>
                         </div>
                     </li>

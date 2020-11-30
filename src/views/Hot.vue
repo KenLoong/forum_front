@@ -8,7 +8,7 @@
                 <el-timeline-item :timestamp="postVo.post.createTimeStr" placement="top" v-for="postVo in records">
                     <el-card>
                         <router-link :to="{name: 'Profile' ,params: {uid : postVo.user.id}}">
-                            <el-avatar  :src="picturePath+postVo.user.avatar"></el-avatar>
+                            <el-avatar  :src=postVo.user.avatar></el-avatar>
                             <span v-text="postVo.user.username"></span>
                         </router-link>
                         <h4>

@@ -7,8 +7,8 @@
                 <!--遍历博客-->
                 <el-timeline-item :timestamp="postVo.post.createTimeStr" placement="top" v-for="postVo in records">
                     <el-card>
+                        <el-avatar :src=postVo.user.avatar></el-avatar>
                         <router-link :to="{name: 'Profile' ,params: {uid : postVo.user.id}}">
-                            <el-avatar  :src="picturePath+postVo.user.avatar"></el-avatar>
                             <span v-text="postVo.user.username"></span>
                         </router-link>
                         <h4>
@@ -57,7 +57,6 @@
         },
         data(){
             return{
-                picturePath:'http://47.115.88.155',
                 uploadPath:this.$axios.defaults.baseURL,
                 records: {},
                 currentPage: 1,
@@ -74,6 +73,8 @@
                     _this.currentPage = res.data.data.currentPage
                     _this.total = res.data.data.total
                     _this.pageSize = res.data.data.pageSize
+
+                    console.log(_this.records[0].postVo.user)
 
                 })
             }

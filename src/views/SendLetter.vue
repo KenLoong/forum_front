@@ -32,7 +32,7 @@
         },
         data() {
             return {
-                toName:this.$route.params.toName,
+                toName:'',
                 labelPosition: 'right',
                 ruleForm: {
                     content: '',
@@ -96,6 +96,13 @@
             },
             fail(msg) {
                 this.$message.error(msg);
+            }
+        },
+        created() {
+            if (this.$route.params.toName == '0'){
+                this.toName = '';
+            }else {
+                this.toName = this.$route.params.toName;
             }
         }
 

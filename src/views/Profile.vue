@@ -132,7 +132,7 @@
                     _this.user = myData.user
                     _this.isMine = myData.isMine
                     _this.likeCount = myData.likeCount
-                    _this.user.avatar = _this.uploadPath + _this.user.avatar
+                    _this.user.avatar = _this.user.avatar
                     _this.followeeCount = myData.followeeCount
                     _this.followerCount = myData.followerCount
                     _this.hasFollowed = myData.hasFollowed

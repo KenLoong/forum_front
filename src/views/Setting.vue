@@ -8,7 +8,7 @@
             <el-card class="myFlex">
                 <div>
                     <h3>头像</h3>
-                    <el-image :src="picturePath+userInfo.avatar" class="myAvatar">
+                    <el-image :src="userInfo.avatar" class="myAvatar">
                         <div slot="placeholder" class="image-slot">
                             加载中<span class="dot">...</span>
                         </div>
@@ -56,11 +56,10 @@
             return{
                 //头像网络资源地址
                 uploadPath:this.$axios.defaults.baseURL,
-                picturePath:'http://47.115.88.155',
+                // picturePath:'http://47.115.88.155',
                 userInfo:'',
                 isMine:false,
                 likeCount:'',
-
 
                 //头像上传地址
                 avatarAction: this.$axios.defaults.baseURL+'/user/avatar',

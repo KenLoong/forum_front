@@ -21,10 +21,11 @@
                 <el-menu-item index="5-2" @click="publish(1)">写文章</el-menu-item>
             </el-submenu>
 
+            <!--头像-->
             <el-submenu v-show="$store.state.isLogin"  index="6" class="navInfo">
                 <el-menu-item v-text="$store.state.userInfo.username"></el-menu-item>
                 <template slot="title" >
-                    <el-avatar :size="50" :src="picturePath+$store.state.userInfo.avatar"></el-avatar>
+                    <el-avatar :size="50" :src="$store.state.userInfo.avatar"></el-avatar>
                 </template>
                 <el-menu-item index="6-1" @click="toHome">我的主页</el-menu-item>
                 <el-menu-item index="6-2" @click="toSetting">设置</el-menu-item>
@@ -53,7 +54,8 @@
         },
         data() {
             return {
-                picturePath:'http://47.115.88.155',
+                picturePath:'http://localhost:8089',
+                // picturePath:'http://47.115.88.155',
                 uploadPath:this.$axios.defaults.baseURL,
                 isLogin : this.$store.state.isLogin,
                 // activeIndex: '2',

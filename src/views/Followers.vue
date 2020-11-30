@@ -31,7 +31,7 @@
                 <ul class="list-unstyled">
                     <li class="media pb-3 pt-3 mb-3 border-bottom position-relative" v-for=" map in  userList">
                         <router-link :to="{name: 'Profile' ,params: {uid : map.user.id}}">
-                            <el-avatar  :src="uploadPath+map.user.avatar"></el-avatar>
+                            <el-avatar  :src="map.user.avatar"></el-avatar>
                         </router-link>
 
                         <div class="media-body">
