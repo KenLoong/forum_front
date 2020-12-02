@@ -1,28 +1,32 @@
 <template>
     <div>
+        <!--头部-->
         <navbar ></navbar>
-        <el-form :model="ruleForm"  status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm ">
-            <!--  form-item 的 prop对应的就是校验规则   -->
-            <el-form-item  label="用户名" prop="username" >
-                <el-input class="form-item" v-model="ruleForm.username" ></el-input>
-            </el-form-item>
 
-            <el-form-item  label="密码" prop="pass">
-                <el-input class="form-item" type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
-            </el-form-item>
+        <div class="mymain">
+            <el-form :model="ruleForm"  status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm ">
+                <!--  form-item 的 prop对应的就是校验规则   -->
+                <el-form-item  label="用户名" prop="username" >
+                    <el-input class="form-item" v-model="ruleForm.username" ></el-input>
+                </el-form-item>
 
-            <el-form-item prop="seccode" label="验证码" class="inputbar">
-                <el-input class="form-item vcode" v-model="ruleForm.seccode"></el-input>
-                <el-button type="primary" @click="createCode" class="form-item vcode">{{checkCode}}</el-button>
-            </el-form-item>
+                <el-form-item  label="密码" prop="pass">
+                    <el-input class="form-item" type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+                </el-form-item>
 
-            <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="test">测试</el-button>
-            </el-form-item>
-        </el-form>
+                <el-form-item prop="seccode" label="验证码" class="inputbar">
+                    <el-input class="form-item vcode" v-model="ruleForm.seccode"></el-input>
+                    <el-button type="primary"  @click="createCode" class="form-item vcode">{{checkCode}}</el-button>
+                </el-form-item>
+
+                <el-form-item>
+                    <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+                    <router-link class="nav-link" :to="{name: 'Forget'}">忘记密码?</router-link>
+                </el-form-item>
+
+
+            </el-form>
+        </div>
     </div>
 </template>
 
@@ -34,6 +38,7 @@
             navbar : Navbar
         },
         data() {
+            const _this = this;
 
             var validateCode = (rule, value, callback) => {
                 if (value === '') {
@@ -41,6 +46,7 @@
                 } else if (value.toLowerCase() !== this.checkCode.toLowerCase()) {
                     //刷新验证码
                     callback(new Error('验证码错误!'));
+                    _this.createCode();
                 } else {
                     callback();
                 }
@@ -127,6 +133,8 @@
                     console.log(error);
                 });
             },
+
+            //生成验证码
             createCode() {
                 let code = "";
                 const codeLength = 4; //验证码的长度
@@ -159,8 +167,15 @@
 <style scoped>
     .vcode{
         flex: inherit;
+        margin-left: 20px;
     }
     .form-item{
         width: 300px;
+        float: left;
+    flex: inherit;
+    }
+    .mymain{
+        margin-left: 100px;
+        margin-top: 50px;
     }
 </style>
