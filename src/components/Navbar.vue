@@ -101,6 +101,9 @@
             },
             toHome(){
                 const  _this = this;
+                console.log(_this.$route.fullPath)
+                 console.log(_this.$route.path)
+
                 this.$router.push({
                     name :'Profile',
                     params:{
