@@ -6,7 +6,7 @@
                 <el-menu-item @click="toKen">关于本站</el-menu-item>
                 <el-menu-item index="2" @click="toIndex">最新</el-menu-item>
                 <el-menu-item index="3" @click="toHot">最热</el-menu-item>
-                <el-menu-item index="4" @click="toLetter">消息中心</el-menu-item>
+                <el-menu-item index="4" @click="toMessage">消息中心</el-menu-item>
                 <el-menu-item >
                     <el-input class="border-radius" @keyup.enter="search" v-model="keyword"></el-input>
                     <el-button type="primary" @click="search"  icon="el-icon-search">搜索</el-button>
@@ -24,7 +24,7 @@
                 <el-submenu v-show="$store.state.isLogin"  index="6" class="navInfo">
                     <el-menu-item v-text="$store.state.userInfo.username"></el-menu-item>
                     <template slot="title" >
-                        <el-avatar :size="50" :src="picturePath+$store.state.userInfo.avatar"></el-avatar>
+                        <el-avatar :size="50" :src="$store.state.userInfo.avatar"></el-avatar>
                     </template>
                     <el-menu-item index="6-1" @click="toHome">我的主页</el-menu-item>
                     <el-menu-item index="6-2" @click="toSetting">设置</el-menu-item>
@@ -137,12 +137,12 @@
             handleSelect(key, keyPath) {
                 console.log(key, keyPath);
             },
-            toLetter(){
+            toMessage(){
                 if (!this.$store.state.isLogin || this.$store.state.isLogin==''){
                     this.$message.error('要登录才能查看消息哦');
                     return;
                 }
-                this.$router.push('/letter')
+                this.$router.push('/message')
             },
             login(){
                 this.$router.push('/login')

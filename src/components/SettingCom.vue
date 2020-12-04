@@ -3,25 +3,6 @@
         <el-card>
             <div>
 
-                <!--<el-upload
-                        class="avatar-uploader"
-                        :action="avatarAction"
-                        :headers="myHeader"
-                        accept=".jpg,.jpeg,.JPG,.JPEG,.PNG,.png"
-                        :show-file-list="false"
-                        :on-success="uploadSuccess"
-                        :before-upload="beforeUplaod"
-                >
-                    <el-image :src="userInfo.avatar" class="myAvatar">
-                    <div slot="placeholder" class="image-slot">
-                        加载中<span class="dot">...</span>
-                    </div>
-                    </el-image>
-                    <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过1M</div>
-                </el-upload>-->
-
-
-
                 <h3>头像</h3>
                 <el-image :src="userInfo.avatar" class="myAvatar">
                     <div slot="placeholder" class="image-slot">

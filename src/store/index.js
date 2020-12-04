@@ -7,7 +7,8 @@ Vue.use(Vuex)
 const store= new Vuex.Store({
     state: {
         userInfo:JSON.parse(sessionStorage.getItem("userInfo")) || {},
-        isLogin: sessionStorage.getItem("isLogin") || false
+        isLogin: sessionStorage.getItem("isLogin") || false,
+        ws:{}
     },
     mutations:{
         //只有通过state的修改，vue才能实时监控到全局变量的变化！

@@ -113,6 +113,11 @@ const routes = [
         path:'/forget',
         name:'Forget',
         component: () => import('../views/Forget.vue')
+    },
+    {
+        path:'/message',
+        name:'Message',
+        component: () => import('../views/Message.vue')
     }
 
 ]

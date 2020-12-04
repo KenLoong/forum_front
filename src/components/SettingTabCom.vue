@@ -1,6 +1,6 @@
 <!--设置页的侧边栏-->
 <template>
-    <div >
+    <div>
         <el-row class="tac">
             <el-col :span="12">
                 <h5>个人设置</h5>

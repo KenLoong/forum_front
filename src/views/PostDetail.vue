@@ -62,12 +62,12 @@
                 <div class="markdown-body" v-html="postContent"></div>
 
 
-                <!--展示图片-->
+                <!--&lt;!&ndash;展示图片&ndash;&gt;
                 <div>
                     <div class="block" v-for="p in pictures">
                         <el-image :src="picturePath+p"></el-image>
                     </div>
-                </div>
+                </div>-->
 
                 <br>
                 <hr>
@@ -91,7 +91,7 @@
 
                         <!--用户头像-->
                         <router-link :to="{name: 'Profile' ,params: {uid : commentVo.user.id}}">
-                            <el-avatar  :src="uploadPath+commentVo.user.avatar"></el-avatar>
+                            <el-avatar  :src="commentVo.user.avatar"></el-avatar>
                         </router-link>
 
                         <div class="media-body">
@@ -108,6 +108,7 @@
                                 <!--发布时间-->
                                 <span>发布于 <b v-text="commentVo.comment.createTime"></b></span>
                                 <ul class="d-inline float-right">
+                                    <!--点赞-->
                                     <li class="d-inline ml-2" @click="like($event.currentTarget,2,commentVo.comment.id,commentVo.user.id,postVo.post.id)">
                                         <a href="javascript:;">
                                             <b v-text="commentVo.comment.likeStatus == 0 ? '赞 ':'已赞 '"></b>
@@ -115,6 +116,7 @@
                                         </a>
                                     </li>
                                     <li class="d-inline ml-2">|</li>
+                                    <!--评论一级评论-->
                                     <li class="d-inline ml-2">
                                         <!--第1个参数是entityId，第2个参数是targetId-->
                                         <a v-b-toggle="'myReply'+commentVo.comment.id" @click="ReplyData(commentVo.comment.id,0)" class="m-1">
@@ -123,7 +125,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <!-- 回复列表 -->
+                            <!-- 二级评论列表 -->
                             <ul class="list-unstyled mt-4 bg-gray p-3 font-size-12 text-muted">
 
                                 <li class="pb-3 pt-3 mb-3 border-bottom" v-for="replyVo in commentVo.replies">
@@ -144,6 +146,7 @@
                                         <!--回复时间-->
                                         <span v-text="replyVo.reply.createTime"></span>
                                         <ul class="d-inline float-right">
+                                            <!--点赞-->
                                             <li class="d-inline ml-2" @click="like($event.currentTarget,2,replyVo.reply.id,replyVo.user.id,postVo.post.id)">
                                                 <a href="javascript:;">
                                                     <b v-text="replyVo.reply.likeStatus == 0 ? '赞 ':'已赞 '"></b>
@@ -151,6 +154,7 @@
                                                 </a>
                                             </li>
                                             <li class="d-inline ml-2">|</li>
+                                            <!--回复二级评论-->
                                             <li class="d-inline ml-2">
                                                 <!--第1个参数是entityId，第2个参数是targetId-->
                                                 <a v-b-toggle="'myReply'+commentVo.comment.id" @click="ReplyData(commentVo.comment.id,replyVo.user.id)" class="m-1">回复</a>
@@ -364,7 +368,7 @@
                     console.log(error);
                 });
             },
-            //点赞
+            //点赞（$event.currentTarget传递的是dom元素本身）
             like(event,entityType, entityId,entityUserId,postId){
                 if (!this.$store.state.isLogin || this.$store.state.isLogin==''){
                     this.$message.error('要登录才能点赞哦');
@@ -392,7 +396,7 @@
                             _this.postVo.post.likeCount = myData.likeCount
                             _this.likeStatus = myData.likeStatus
                         }else {
-                            //更新评论点赞数,重新查询评论
+                            //更新评论点赞数（直接操作dom元素）
                             event.firstChild.lastChild.innerHTML= myData.likeCount
                         }
 

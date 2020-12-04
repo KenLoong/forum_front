@@ -6,7 +6,7 @@
 <!--            <el-menu-item index="1">首页</el-menu-item>-->
             <el-menu-item index="2" @click="toIndex">最新</el-menu-item>
             <el-menu-item index="3" @click="toHot">最热</el-menu-item>
-            <el-menu-item index="4" @click="toLetter">消息中心</el-menu-item>
+            <el-menu-item index="4" @click="toMessage">消息中心<span v-if="msgCount != 0" class="badge badge-danger ml-3">{{msgCount}}</span></el-menu-item>
             <el-menu-item >
                 <el-input class="border-radius" @keyup.enter="search" v-model="keyword"></el-input>
                 <el-button type="primary" @click="search"  icon="el-icon-search">搜索</el-button>
@@ -60,19 +60,21 @@
                 isLogin : this.$store.state.isLogin,
                 // activeIndex: '2',
                 userInfo:this.$store.state.userInfo,
-                keyword:''
+                keyword:'',
+                msgCount:0
             };
         },
         methods: {
             handleSelect(key, keyPath) {
                 console.log(key, keyPath);
             },
-            toLetter(){
+            toMessage(){
                 if (!this.$store.state.isLogin || this.$store.state.isLogin==''){
                     this.$message.error('要登录才能查看消息哦');
                     return;
                 }
-                this.$router.push('/letter')
+                //跳转到消息中心
+                this.$router.push('/message')
             },
             login(){
                 this.$router.push('/login')

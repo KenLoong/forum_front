@@ -1,7 +1,22 @@
+<!--消息中心-->
 <template>
     <div class="nk-container">
         <!-- 头部 -->
         <Navbar active-index="4"></Navbar>
+
+        <div class="container">
+            <div class="row" >
+                <div class="col-4">
+                    <!--侧边栏-->
+                    <MessageTabCom active-index="1" @selecttab="changeActiveIndex"></MessageTabCom>
+                </div>
+
+                <div class="col-8">
+
+                </div>
+            </div>
+
+        </div>
 
         <!-- 内容 -->
         <div class="main">
@@ -114,10 +129,12 @@
 
 <script>
     import Navbar from "../components/Navbar";
+    import MessageTabCom from "../components/MessageTabCom";
     export default {
         name: "Notice",
         components:{
-            Navbar
+            Navbar,
+            MessageTabCom
         },
         data(){
             return{
@@ -126,7 +143,8 @@
                 likeNotice:'',
                 followNotice:'',
                 letterUnreadCount:0,
-                noticeUnreadCount:0
+                noticeUnreadCount:0,
+                activeIndex:1
             }
         },
         created() {
@@ -151,6 +169,10 @@
         methods:{
             handleSelect(key, keyPath) {
                 console.log(key, keyPath);
+            },
+            /*监听子组件的事件，改变侧边栏状态*/
+            changeActiveIndex(key){
+                this.activeIndex = key;
             }
         }
     }
