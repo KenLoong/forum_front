@@ -99,12 +99,19 @@
                             if (res.data.code == 200){
                                 //登录成功
                                 //保存token
-                                sessionStorage.setItem("JWT_TOKEN", res.data.data);
+                                const data = res.data.data;
+                                console.log(data);
+
+                                sessionStorage.setItem("JWT_TOKEN", data.token);
                                 //请求用户信息
-                                _this.getInfo(res.data.data);
+                                _this.getInfo(data.token);
+                                //创建websocket连接
+                                _this.$store.commit('setWebsocket');
+                                //保存聊天用户列表
+                                _this.$store.commit('setUserList',data.userList);
                                 _this.success()
                                 //跳转至首页
-                                _this.$router.push('/')
+                                // _this.$router.push('/')
                             }else{
                                 _this.fail(res.data.msg)
                             }

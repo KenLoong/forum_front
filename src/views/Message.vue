@@ -20,6 +20,9 @@
                     <FollowMe v-if="activeIndex == 3"></FollowMe>
                     <!--系统消息-->
                     <SystemMe v-if="activeIndex == 4"></SystemMe>
+                    <!--聊天界面-->
+                    <ChatMe v-if="activeIndex == 5"></ChatMe>
+
 
                 </div>
             </div>
@@ -39,6 +42,7 @@
     import LikeMe from "../components/msg/LikeMe";
     import FollowMe from "../components/msg/FollowMe";
     import SystemMe from "../components/msg/SystemMe";
+    import ChatMe from "../components/msg/ChatMe";
     export default {
         name: "Message",
         components:{
@@ -47,7 +51,8 @@
             ReplyMe,
             LikeMe,
             FollowMe,
-            SystemMe
+            SystemMe,
+            ChatMe
         },
         data(){
             return{
