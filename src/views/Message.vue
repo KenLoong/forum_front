@@ -56,18 +56,14 @@
         },
         data(){
             return{
-                // activeIndex:"2",
-                commentNotice:'',
-                likeNotice:'',
-                followNotice:'',
-                letterUnreadCount:0,
-                noticeUnreadCount:0,
                 activeIndex:1
             }
         },
         created() {
-            const _this = this;
-
+            //在页面刷新时将vuex里的最新信息保存到sessionStorage里
+            window.addEventListener("beforeunload",()=>{
+                sessionStorage.setItem("state",JSON.stringify(this.$store.state))
+            })
         },
         methods:{
             handleSelect(key, keyPath) {

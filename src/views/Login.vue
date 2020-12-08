@@ -105,13 +105,9 @@
                                 sessionStorage.setItem("JWT_TOKEN", data.token);
                                 //请求用户信息
                                 _this.getInfo(data.token);
-                                //创建websocket连接
-                                _this.$store.commit('setWebsocket');
-                                //保存聊天用户列表
-                                _this.$store.commit('setUserList',data.userList);
                                 _this.success()
                                 //跳转至首页
-                                // _this.$router.push('/')
+                                _this.$router.push('/')
                             }else{
                                 _this.fail(res.data.msg)
                             }

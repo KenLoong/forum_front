@@ -47,7 +47,7 @@
             }
         },
         methods:{
-            //弹出登录成功信息
+            //弹出成功信息
             success(msg) {
                 this.$message({
                     message: msg,
