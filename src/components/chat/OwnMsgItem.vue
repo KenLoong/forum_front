@@ -1,7 +1,7 @@
 <template>
     <div class="own-msg-item" @click="setRead" :style="bgc">
 <!--        <span><a :href="/mine/ + this.item.fromId"><img :src="this.ownUrl"></a></span>-->
-        <span><img :src="this.ownUrl"></span>
+        <span><router-link :to="{name: 'Profile' ,params: {uid : profileId}}"><img :src="this.ownUrl"></router-link></span>
         <div class="r-top">
             <span class="msg-content">{{msgText}}</span>
         </div>
@@ -14,6 +14,8 @@
     // import {setAlreadyRead} from "../../../network/auth";
     // import JSONbig from "json-bigint";
     // import {getEntityUserInfo} from "../../../network/auth";
+
+    import moment from "moment";
 
     export default {
         name: "OwnMsgItem",
@@ -35,8 +37,9 @@
                 type: String,
                 default: ''
             },
-
-
+            profileId: {
+              type:Number
+            },
             ownUrl: {
                 type: String
                 // default: 'https://upload.jianshu.io/users/upload_avatars/24326020/3608d730-a51f-4389-960c-814649c5c78b.png?imageMogr2/auto-orient/strip|imageView2/1/w/144/h/144/format/webp'
@@ -46,8 +49,7 @@
         },
         computed: {
             extime() {
-                // return moment(this.item.createTime).format("YYYY-MM-DD HH:mm:ss")
-                return "ss"
+                return moment(this.item.createTime).format('YYYY-MM-DD HH:mm:ss');
             },
 
             bgc() {

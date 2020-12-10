@@ -31,6 +31,8 @@
                             <span v-text="user.username"></span>
                             <!--关注按钮-->
                             <button type="button" v-if="!isMine" @click="follow(user.id)" class="btn btn-info btn-sm float-right mr-5 follow-btn" v-text="hasFollowed?'取消关注':'关注TA'">关注TA</button>
+                            <!--私聊按钮-->
+                            <button type="button" v-if="!isMine" @click="chat(user)" class="btn btn-info btn-sm float-right mr-5 follow-btn">发消息</button>
                         </h5>
                         <div class="text-muted mt-3">
                             <span>注册于 <i class="text-muted" v-text="user.createTime">2015-06-12 15:20:12</i></span>
@@ -202,6 +204,24 @@
                 }).catch(function(error){
                     console.log(error);
                 });
+            },
+            chat(user){
+                const _this = this;
+                //要先登录才能关注或取消关注
+                if (!this.$store.state.isLogin || this.$store.state.isLogin==''){
+                    this.$message.error('要登录才能发消息哦');
+                    return;
+                }
+                //设置消息页面的侧边栏索引
+                _this.$store.commit('setMsgActiveIndex',5)
+                //获取与对方的私聊记录
+                this.$store.commit('getSession',user.id)
+                //选中与对方聊天
+                this.$store.commit('setCurrentUser',user)
+                //跳转至聊天页面
+                _this.$router.push('/message')
+
+
             }
 
         },

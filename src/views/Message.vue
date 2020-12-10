@@ -56,7 +56,7 @@
         },
         data(){
             return{
-                activeIndex:1
+                activeIndex: this.$store.state.msgActiveIndex
             }
         },
         created() {
@@ -64,6 +64,13 @@
             window.addEventListener("beforeunload",()=>{
                 sessionStorage.setItem("state",JSON.stringify(this.$store.state))
             })
+        },
+        mounted() {
+            //初始化数据(聊天的用户列表)
+            this.$store.dispatch('initData');
+            //创建链接(页面一加载就重新创建连接)
+            this.$store.dispatch('connect');
+
         },
         methods:{
             handleSelect(key, keyPath) {

@@ -1,7 +1,7 @@
 <template>
     <div class="opposite-msg-item" @click="setRead" :style="bgc">
 <!--        <span><a :href="/mine/ + this.item.fromId"><img :src="oppositeUrl"></a></span>-->
-        <span><img :src="oppositeUrl"></span>
+        <span><router-link :to="{name: 'Profile' ,params: {uid : profileId}}"><img :src="oppositeUrl"></router-link></span>
         <div class="r-top">
             <span class="msg-content">{{msgText}}</span>
         </div>
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-    // import moment from 'moment';
+    import moment from 'moment';
     // import {setAlreadyRead} from "../../../network/auth";
     // import JSONbig from "json-bigint";
     // import {getEntityUserInfo} from "../../../network/auth";
@@ -39,17 +39,18 @@
                 default: ''
             },
 
+            profileId: {
+                type:Number
+            },
             oppositeUrl: {
-                type: String,
-                default: 'http://qjavcyfnj.hn-bkt.clouddn.com/F.png'
+                type: String
             }
 
 
         },
         computed: {
             extime() {
-                 // return moment(this.item.createTime).format("YYYY-MM-DD HH:mm:ss")
-                return 'sss';
+                return moment(this.item.createTime).format('YYYY-MM-DD HH:mm:ss');
             },
 
             bgc() {

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
+import { Notification } from 'element-ui';
+
 
 Vue.use(Vuex)
 
@@ -12,7 +13,8 @@ const store= new Vuex.Store({
         ws:null,//websocket连接端点
         userList:{},//聊天用户列表
         currentUser:{}, //当前聊天对象
-        sessions:{}    //聊天记录
+        sessions:[],    //聊天记录
+        msgActiveIndex:1
     },
     mutations:{
         //弹出登录成功信息
@@ -24,6 +26,14 @@ const store= new Vuex.Store({
         },
         fail(msg) {
             this.$message.error(msg);
+        },
+        //改变消息页面的侧边栏的选择
+        setMsgActiveIndex(state,i){
+            state.msgActiveIndex = i;
+        },
+        setCurrentUser(state,user){
+            state.currentUser = user;
+
         },
         //只有通过state的修改，vue才能实时监控到全局变量的变化！
         setUserInfo(state,userInfo){
@@ -38,7 +48,12 @@ const store= new Vuex.Store({
             sessionStorage.clear();
             state.isLogin = false;
             state.userInfo = {};
-            state.ws.close();
+            if (state.ws != null){
+                //关闭连接
+                state.ws.close();
+            }
+            //清空聊天记录
+            state.sessions = {};
         },
         setWebsocket(state){
             const token = window.sessionStorage.getItem('JWT_TOKEN');
@@ -50,25 +65,50 @@ const store= new Vuex.Store({
             state.userList = userList;
             console.log("执行了用户列表")
         },
-        //添加聊天记录到vuex中
+        //添加聊天记录到vuex中（添加自己发送的消息）
         addMessage(state,msg){
             //获取浏览器内存中的聊天记录
-            let message=state.sessions[state.userInfo.id+"_"+msg.to_id];
+            let message=state.sessions[state.userInfo.id+"_"+msg.toId];
             if (!message){
                 //创建保存消息记录的数组
-                Vue.set(state.sessions,state.currentUser.username+"_"+msg.to,[]);
+                Vue.set(state.sessions,state.userInfo.id+"_"+msg.toId,[]);
             }
             //把聊天记录放进数组中
-            state.sessions[state.userInfo.id+"_"+msg.to].push({
+            state.sessions[state.userInfo.id+"_"+msg.toId].push({
+                content:msg.content,
+                createTime: msg.createTime,
+                fromId:msg.fromId,
+                toId:msg.toId
+            })
+        },
+        //添加聊天记录到vuex中（添加对方发送的消息）
+        addOtherMessage(state,msg){
+            //解析json字符串
+            msg = JSON.parse(msg);
+            //获取浏览器内存中的聊天记录
+            let message=state.sessions[msg.toId+"_"+msg.fromId];
+            if (!message){
+                //创建保存消息记录的数组
+                Vue.set(state.sessions,msg.toId+"_"+msg.fromId,[]);
+            }
+            //把聊天记录放进数组中
+            state.sessions[msg.toId+"_"+msg.fromId].push({
                 content:msg.content,
                 time: msg.time,
-                from_avatar: msg.from_avatar,
-                to_avatar:msg.to_avatar,
-                from_name:msg.from_name,
-                to_name:msg.to_name,
-                from_id:msg.from_id,
-                to_id:msg.to_id
+                fromId:msg.fromId,
+                toId:msg.toId
             })
+
+            if (msg.fromId!=state.currentUser.id){
+                Notification.info({
+                    title:'【'+msg.fromId+'号用户】发来一条消息',
+                    message:msg.content.length<8?msg.content:msg.content.substring(0,8)+"...",
+                    position:"bottom-right"
+                });
+                // //默认为消息未读
+                // Vue.set(context.state.isDot,context.state.currentUser.username+"#"+receiveMsg.from,true);
+            }
+
         },
         //获取用户列表
         GET_USERS(state){
@@ -107,7 +147,6 @@ const store= new Vuex.Store({
                         console.log(data);
                         //创建保存消息记录的数组
                         Vue.set(state.sessions,state.userInfo.id+"_"+current_id,data.chatList);
-
                     }else{
                         _this.fail(res.data.msg)
                     }
@@ -127,10 +166,15 @@ const store= new Vuex.Store({
 
             //接收到服务端推送的消息后触发
             context.state.ws.onmessage = function(evt) {
+
+
+
                 //获取服务端推送过来的消息
-                var dataStr = evt.data;
-                //将dataStr 转换为json对象
-                var message = JSON.parse(dataStr);
+                var message = evt.data;
+                //因为是对方发来的消息，from_id是对方的id
+                //而聊天记录是以当前用户id为前缀的,所以要用另外的方法来保存
+                //保存到聊天记录
+                context.commit('addOtherMessage',message);
 
             }
         },

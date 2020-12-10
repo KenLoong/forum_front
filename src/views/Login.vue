@@ -1,7 +1,7 @@
 <template>
     <div>
         <!--头部-->
-        <navbar ></navbar>
+        <navbar></navbar>
 
         <div class="mymain">
             <el-form :model="ruleForm"  status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm ">
