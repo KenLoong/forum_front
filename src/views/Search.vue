@@ -46,7 +46,7 @@
                 <ul class="list-unstyled mt-4">
                     <li class="media pb-3 pt-3 mb-3 border-bottom"  v-for="map in posts" >
                         <router-link :to="{name: 'Profile' ,params: {uid : map.user.id}}">
-                            <el-avatar  :src="uploadPath+map.user.avatar"></el-avatar>
+                            <el-avatar  :src="map.user.avatar"></el-avatar>
                         </router-link>
                         <div class="media-body">
                             <h6 class="mt-0 mb-3">
@@ -110,8 +110,6 @@
                 currentPage:1,
                 pageSize:5,
                 total:0,
-                picturePath:'http://47.115.88.155',
-                uploadPath:this.$axios.defaults.baseURL,
                 posts:'',
                 keyword:'',
 

@@ -10,7 +10,7 @@
                             <span v-text="msgVo.fromUser.username"></span>
                         </router-link>
                         <router-link :to="{name : 'PostDetail' , params: {pid:msgVo.postId}} ">
-                            <h4>点赞了你的<span v-text="msgVo.entityType == 1 ? '文章' : '评论'"></span>
+                            <h4>点赞了你的<span v-text="msgVo.msgType == 1 ? '文章' : '评论'"></span>
                             </h4>
                         </router-link>
 

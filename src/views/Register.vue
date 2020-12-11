@@ -36,9 +36,7 @@
             <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
             </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click=test>测试</el-button>
-            </el-form-item>
+
         </el-form>
     </div>
 </template>
