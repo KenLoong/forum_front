@@ -70,7 +70,6 @@ Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 
 axios.defaults.baseURL = 'http://localhost:8089/forum_server'
-// axios.defaults.baseURL = 'http://47.115.88.155:8089/forum_server'
 
 /**
  *  axios请求拦截器,每次请求带上token
