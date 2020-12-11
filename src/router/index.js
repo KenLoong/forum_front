@@ -34,7 +34,7 @@ const routes = [
         name: 'PostDetail',
         component: () => import('../views/PostDetail.vue')
     },
-    {
+    /*{
         path: '/letter',
         name: 'Letter',
         component: () => import('../views/Letter.vue')
@@ -43,12 +43,12 @@ const routes = [
         path:'/letter/:cid',
         name:'LetterDetail',
         component: () => import('../views/LetterDetail.vue')
-    },
-    {
+    },*/
+    /*{
         path:'/send/:toName',
         name:'SendLetter',
         component: () => import('../views/SendLetter.vue')
-    },
+    },*/
     {
         path:'/followers/:userId',
         name:'Followers',
