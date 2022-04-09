@@ -232,10 +232,9 @@
                      * $vm 指为mavonEditor实例，可以通过如下两种方式获取
                      * 1.  通过引入对象获取: `import {mavonEditor} from ...` 等方式引入后，`$vm`为`mavonEditor`
                      * 2. 通过$refs获取: html声明ref : `<mavon-editor ref=md ></mavon-editor>，`$vm`为 `this.$refs.md`
-                         * 3. 由于vue运行访问的路径只能在static下，so，我就把图片保存到它这里了
+                     * 3. 由于vue运行访问的路径只能在static下，so，我就把图片保存到它这里了
                      */
                     _this.$refs.md.$img2Url(pos,res.data.msg)
-
 
                 }).catch(function(error){
                     console.log(error);

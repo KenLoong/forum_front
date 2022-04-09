@@ -23,8 +23,8 @@
                 </div>
                 <!-- 个人信息 -->
                 <div class="media mt-5">
+                    <!--头像-->
                     <el-avatar  :src="user.avatar"></el-avatar>
-<!--                    <img src="http://images.nowcoder.com/head/1t.png" class="align-self-start mr-4 rounded-circle" alt="用户头像" style="width:50px;">-->
                     <div class="media-body">
                         <h5 class="mt-0 text-warning">
                             <!--用户名-->
@@ -229,6 +229,7 @@
             return{
                 //头像网络资源地址
                 uploadPath:this.$axios.defaults.baseURL,
+                picPath:"http://localhost:8089/forum_server",
                 user:'',
                 isMine:false,
                 likeCount:'',

@@ -167,8 +167,6 @@ const store= new Vuex.Store({
             //接收到服务端推送的消息后触发
             context.state.ws.onmessage = function(evt) {
 
-
-
                 //获取服务端推送过来的消息
                 var message = evt.data;
                 //因为是对方发来的消息，from_id是对方的id

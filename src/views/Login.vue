@@ -129,6 +129,7 @@
                 }).then(function(res){
                     //保存用户信息
                     //保存用户
+                    console.log("userInfo:",res.data.data)
                     _this.$store.commit("setUserInfo", res.data.data);
                     _this.$store.commit("setLoginState",true);
                     console.log(res);

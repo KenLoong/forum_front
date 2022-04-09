@@ -73,9 +73,6 @@
                     _this.currentPage = res.data.data.currentPage
                     _this.total = res.data.data.total
                     _this.pageSize = res.data.data.pageSize
-
-                    console.log(_this.records[0].postVo.user)
-
                 })
             }
         },
@@ -83,12 +80,10 @@
         created() {
             const _this = this
             _this.$axios.get("/post/list?currentPage=1").then(res => {
-                console.log(res)
                 _this.records = res.data.data.records
                 _this.currentPage = res.data.data.currentPage
                 _this.total = res.data.data.total
                 _this.pageSize = res.data.data.pageSize
-
             })
         }
     }
